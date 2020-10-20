@@ -7,38 +7,72 @@ export default class Keys extends React.Component {
         return (
             <View style={styles.keys}>
                 <View style={styles.row}>
-                    <Button>AC</Button>
-                    <View style={styles.placeholder} />
-                    <View style={styles.placeholder} />
-                    <Button orange>/</Button>
+                    <View style={styles.item}>
+                        <Button gray>AC</Button>
+                    </View>
+                    <View style={styles.itemBig}>
+                        <View style={styles.placeholder} />
+                    </View>
+                    <View style={styles.item}>
+                        <Button orange>/</Button>
+                    </View>
                 </View>
 
                 <View style={styles.row}>
-                    <Button>7</Button>
-                    <Button>8</Button>
-                    <Button>9</Button>
-                    <Button orange>*</Button>
+                    <View style={styles.item}>
+                        <Button>7</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button>8</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button>9</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button orange>*</Button>
+                    </View>
                 </View>
 
                 <View style={styles.row}>
-                    <Button>4</Button>
-                    <Button>5</Button>
-                    <Button>6</Button>
-                    <Button orange>-</Button>
+                    <View style={styles.item}>
+                        <Button>4</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button>5</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button>6</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button orange>-</Button>
+                    </View>
                 </View>
 
                 <View style={styles.row}>
-                    <Button>1</Button>
-                    <Button>2</Button>
-                    <Button>3</Button>
-                    <Button orange>+</Button>
+                    <View style={styles.item}>
+                        <Button>1</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button>2</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button>3</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button orange>+</Button>
+                    </View>
                 </View>
 
                 <View style={styles.row}>
-                    <Button>0</Button>
-                    <View style={styles.placeholder} />
-                    <Button>,</Button>
-                    <Button orange>=</Button>
+                    <View style={styles.itemBig}>
+                        <Button big>0</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button>,</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button orange>=</Button>
+                    </View>
                 </View>
             </View>
         );
@@ -57,9 +91,16 @@ const styles = StyleSheet.create({
     },
 
     placeholder: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 25
+        flex: 2,
+        borderWidth: 1,
+        borderColor: "#545559"
+    },
+
+    item: {
+        flex: 1
+    },
+
+    itemBig: {
+        flex: 2
     }
 });

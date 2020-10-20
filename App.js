@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     result: {
         flex: 0.4,
         justifyContent: "flex-end",
-        alignItems: "flex-end"
+        alignItems: "flex-end",
+        marginRight: 20
     },
 
     resultText: {
