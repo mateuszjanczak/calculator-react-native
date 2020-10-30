@@ -3,75 +3,101 @@ import {StyleSheet, View} from "react-native";
 import Button from "./Button";
 
 export default class Keys extends React.Component {
+
+    handleAC = () => {
+        const { clearState } = this.props;
+        clearState();
+    }
+
+    handleNumberKey = (number) => {
+        const { addString } = this.props;
+        addString(number);
+    }
+
+    handleOperation = (operation) => {
+        const { setOperation } = this.props;
+        setOperation(operation);
+    }
+
+    handleEquals = () => {
+        const { doCalculate } = this.props;
+        doCalculate();
+    }
+
+    handleDot = () => {
+        const { addString } = this.props;
+        addString(',');
+    }
+
     render() {
         return (
             <View style={styles.keys}>
                 <View style={styles.row}>
                     <View style={styles.item}>
-                        <Button gray>AC</Button>
+                        <Button gray fn={this.handleAC}>AC</Button>
                     </View>
                     <View style={styles.itemBig}>
                         <View style={styles.placeholder} />
                     </View>
                     <View style={styles.item}>
-                        <Button orange>/</Button>
+                        <Button orange fn={() => this.handleOperation("/")}>/</Button>
                     </View>
                 </View>
 
                 <View style={styles.row}>
                     <View style={styles.item}>
-                        <Button>7</Button>
+                        <Button fn={() => this.handleNumberKey(7)}>7</Button>
                     </View>
                     <View style={styles.item}>
-                        <Button>8</Button>
+                        <Button fn={() => this.handleNumberKey(8)}>8</Button>
                     </View>
                     <View style={styles.item}>
-                        <Button>9</Button>
+                        <Button fn={() => this.handleNumberKey(9)}>9</Button>
                     </View>
                     <View style={styles.item}>
-                        <Button orange>*</Button>
-                    </View>
-                </View>
-
-                <View style={styles.row}>
-                    <View style={styles.item}>
-                        <Button>4</Button>
-                    </View>
-                    <View style={styles.item}>
-                        <Button>5</Button>
-                    </View>
-                    <View style={styles.item}>
-                        <Button>6</Button>
-                    </View>
-                    <View style={styles.item}>
-                        <Button orange>-</Button>
+                        <Button orange fn={() => this.handleOperation("*")}>*</Button>
                     </View>
                 </View>
 
                 <View style={styles.row}>
                     <View style={styles.item}>
-                        <Button>1</Button>
+                        <Button fn={() => this.handleNumberKey(4)}>4</Button>
                     </View>
                     <View style={styles.item}>
-                        <Button>2</Button>
+                        <Button fn={() => this.handleNumberKey(5)}>5</Button>
                     </View>
                     <View style={styles.item}>
-                        <Button>3</Button>
+                        <Button fn={() => this.handleNumberKey(6)}>6</Button>
                     </View>
                     <View style={styles.item}>
-                        <Button orange>+</Button>
+                        <Button orange fn={() => this.handleOperation("-")}>-</Button>
+                    </View>
+                </View>
+
+                <View style={styles.row}>
+                    <View style={styles.item}>
+                        <Button fn={() => this.handleNumberKey(1)}>1</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button fn={() => this.handleNumberKey(2)}>2</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button fn={() => this.handleNumberKey(3)}>3</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button orange fn={() => this.handleOperation("+")}>+</Button>
                     </View>
                 </View>
 
                 <View style={styles.row}>
                     <View style={styles.itemBig}>
-                        <Button big>0</Button>
+                        <Button big fn={() => this.handleNumberKey(0)}>0</Button>
                     </View>
                     <View style={styles.item}>
-                        <Button>,</Button>
+                        <Button fn={this.handleDot}>,</Button>
                     </View>
                     <View style={styles.item}>
-                        <Button orange>=</Button>
+                        <Button orange fn={this.handleEquals}>=</Button>
                     </View>
                 </View>
             </View>
