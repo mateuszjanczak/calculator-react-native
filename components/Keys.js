@@ -29,15 +29,58 @@ export default class Keys extends React.Component {
         addString(',');
     }
 
+    handlePercent = () => {
+        const { addString } = this.props;
+        addString(',');
+    }
+
+    handleSign = () => {
+        const { changeSign } = this.props;
+        changeSign();
+    }
+
+    handleFactorial = () => {
+        const { factorial } = this.props;
+        factorial();
+    }
+
+    handleSqrt = () => {
+        const { sqrt } = this.props;
+        sqrt();
+    }
+
+    handlePow = (num) => {
+        const { pow } = this.props;
+        pow(num);
+    }
+
     render() {
+        const { isPortrait } = this.props;
+
         return (
             <View style={styles.keys}>
+
                 <View style={styles.row}>
+
+                    {isPortrait &&
+                        <>
+                            <View style={styles.item}>
+                                <Button fn={this.handleSqrt}>sqrt(x)</Button>
+                            </View>
+                            <View style={styles.item}>
+                                <Button fn={this.handleFactorial}>x!</Button>
+                            </View>
+                        </>
+                    }
+
                     <View style={styles.item}>
                         <Button gray fn={this.handleAC}>AC</Button>
                     </View>
-                    <View style={styles.itemBig}>
-                        <View style={styles.placeholder} />
+                    <View style={styles.item}>
+                        <Button gray fn={this.handleSign}>+/-</Button>
+                    </View>
+                    <View style={styles.item}>
+                        <Button gray fn={this.handlePercent}>%</Button>
                     </View>
                     <View style={styles.item}>
                         <Button orange fn={() => this.handleOperation("/")}>/</Button>
@@ -45,6 +88,18 @@ export default class Keys extends React.Component {
                 </View>
 
                 <View style={styles.row}>
+                    {isPortrait &&
+                    <>
+                        <View style={styles.item}>
+                            <Button fn={() => this.handlePow(2)}>x^2</Button>
+                        </View>
+                        <View style={styles.item}>
+                            <Button fn={() => this.handlePow(3)}>x^3</Button>
+                        </View>
+                    </>
+
+                    }
+
                     <View style={styles.item}>
                         <Button fn={() => this.handleNumberKey(7)}>7</Button>
                     </View>
@@ -60,6 +115,19 @@ export default class Keys extends React.Component {
                 </View>
 
                 <View style={styles.row}>
+
+                    {isPortrait &&
+                    <>
+                        <View style={styles.item}>
+                            <Button fn={() => this.handleNumberKey(X)}>X</Button>
+                        </View>
+                        <View style={styles.item}>
+                            <Button fn={() => this.handleNumberKey(X)}>X</Button>
+                        </View>
+                    </>
+
+                    }
+
                     <View style={styles.item}>
                         <Button fn={() => this.handleNumberKey(4)}>4</Button>
                     </View>
@@ -75,6 +143,18 @@ export default class Keys extends React.Component {
                 </View>
 
                 <View style={styles.row}>
+
+                    {isPortrait &&
+                    <>
+                        <View style={styles.item}>
+                            <Button fn={() => this.handleNumberKey(X)}>X</Button>
+                        </View>
+                        <View style={styles.item}>
+                            <Button fn={() => this.handleNumberKey(X)}>X</Button>
+                        </View>
+                    </>
+
+                    }
                     <View style={styles.item}>
                         <Button fn={() => this.handleNumberKey(1)}>1</Button>
                     </View>
@@ -90,6 +170,18 @@ export default class Keys extends React.Component {
                 </View>
 
                 <View style={styles.row}>
+
+                    {isPortrait &&
+                    <>
+                        <View style={styles.item}>
+                            <Button fn={() => this.handleNumberKey(X)}>X</Button>
+                        </View>
+                        <View style={styles.item}>
+                            <Button fn={() => this.handleNumberKey(X)}>X</Button>
+                        </View>
+                    </>
+
+                    }
                     <View style={styles.itemBig}>
                         <Button big fn={() => this.handleNumberKey(0)}>0</Button>
                     </View>
@@ -107,7 +199,7 @@ export default class Keys extends React.Component {
 
 const styles = StyleSheet.create({
     keys: {
-        flex: 0.6,
+        flex: 1,
         backgroundColor: "#646466"
     },
 
