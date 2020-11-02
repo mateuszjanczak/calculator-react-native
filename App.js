@@ -127,7 +127,7 @@ export default class App extends React.Component {
         })
     }
 
-    changeSign = () => {
+    doChangeSign = () => {
         const { display } = this.state;
         this.setState({
             ...this.state,
@@ -247,6 +247,21 @@ export default class App extends React.Component {
         }
     }
 
+    doPercent = () => {
+        let { display, prev, operation } = this.state;
+
+        if(operation === "*" || operation === "/") {
+            display = display / 100;
+        } else {
+            display = (prev * display) / 100;
+        }
+
+        this.setState({
+            ...this.state,
+            display
+        })
+    }
+
     renderView = (isPortrait) => {
         const { display } = this.state;
 
@@ -262,11 +277,12 @@ export default class App extends React.Component {
                       changeResult={this.changeResult} addString={this.addString}
                       setOperation={this.setOperation} clearState={this.clearState}
                       doCalculate={this.doCalculate} isPortrait={!isPortrait}
-                      changeSign={this.changeSign} factorial={this.doFactorial}
+                      changeSign={this.doChangeSign} factorial={this.doFactorial}
                       sqrt={this.doSqrt} pow={this.doPow}
                       ln={this.doLn} log={this.doLog}
                       exp={this.doExp} e={this.doE}
                       pi={this.doPI} tenPow={this.doTenPow}
+                      percent={this.doPercent}
                 />
             </View>
         )
