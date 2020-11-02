@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { factorial, sqrt, pow} from 'mathjs';
+import { factorial, sqrt, pow, log, log10, exp, e, pi } from 'mathjs';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import Keys from "./components/Keys";
 
@@ -11,7 +11,6 @@ export default class App extends React.Component {
         prev: '',
         operation: ''
     }
-
 
     onChange = ({ window: {width, height} }) => {
         let isPortrait = false;
@@ -27,6 +26,15 @@ export default class App extends React.Component {
     };
 
     componentDidMount() {
+        const dimensions = {
+            window: {
+                width: Dimensions.get('window').width,
+                height: Dimensions.get('window').height
+            }
+        }
+
+        this.onChange(dimensions);
+
         Dimensions.addEventListener("change", this.onChange);
     }
 
@@ -170,6 +178,75 @@ export default class App extends React.Component {
         }
     }
 
+    doLn = () => {
+        let { display } = this.state;
+
+        if(display < 0) {
+            console.log("E: Negative numbers")
+        } else if(display === 0) {
+            console.log("E: Zero number")
+        }  else {
+            display = log(display)
+            this.setState({
+                ...this.state,
+                display
+            })
+        }
+    }
+
+    doLog = () => {
+        let { display } = this.state;
+
+        if(display < 0) {
+            console.log("E: Negative numbers")
+        } else if(display === 0) {
+            console.log("E: Zero number")
+        } else {
+            display = log10(display)
+            this.setState({
+                ...this.state,
+                display
+            })
+        }
+    }
+
+    doExp = () => {
+        let { display } = this.state;
+
+        if(display < 0) {
+            console.log("E: Negative numbers")
+        } else if(display === 0) {
+            console.log("E: Zero number")
+        }  else {
+            display = exp(display)
+            this.setState({
+                ...this.state,
+                display
+            })
+        }
+    }
+
+    doE = () => {
+        this.addString(e);
+    }
+
+    doPI = () => {
+        this.addString(pi);
+    }
+
+    doTenPow = () => {
+        let { display } = this.state;
+        if(display.toString().indexOf('.') !== -1) {
+            console.log("E: Float numbers")
+        } else {
+            display = pow(10, display);
+            this.setState({
+                ...this.state,
+                display
+            })
+        }
+    }
+
     renderView = (isPortrait) => {
         const { display } = this.state;
 
@@ -187,6 +264,9 @@ export default class App extends React.Component {
                       doCalculate={this.doCalculate} isPortrait={!isPortrait}
                       changeSign={this.changeSign} factorial={this.doFactorial}
                       sqrt={this.doSqrt} pow={this.doPow}
+                      ln={this.doLn} log={this.doLog}
+                      exp={this.doExp} e={this.doE}
+                      pi={this.doPI} tenPow={this.doTenPow}
                 />
             </View>
         )
@@ -209,7 +289,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#545557"
     },
     resultText: {
-        fontSize: 100,
+        fontSize: 75,
         color: "white"
     },
 });

@@ -54,6 +54,36 @@ export default class Keys extends React.Component {
         pow(num);
     }
 
+    handleLn = () => {
+        const { ln } = this.props;
+        ln();
+    }
+
+    handleLog = () => {
+        const { log } = this.props;
+        log();
+    }
+
+    handleExp = () => {
+        const { exp } = this.props;
+        exp();
+    }
+
+    handleE = () => {
+        const { e } = this.props;
+        e();
+    }
+
+    handlePI = () => {
+        const { pi } = this.props;
+        pi();
+    }
+
+    handleTenPow = () => {
+        const { tenPow } = this.props;
+        tenPow();
+    }
+
     render() {
         const { isPortrait } = this.props;
 
@@ -119,10 +149,10 @@ export default class Keys extends React.Component {
                     {isPortrait &&
                     <>
                         <View style={styles.item}>
-                            <Button fn={() => this.handleNumberKey(X)}>X</Button>
+                            <Button fn={this.handleLn}>ln</Button>
                         </View>
                         <View style={styles.item}>
-                            <Button fn={() => this.handleNumberKey(X)}>X</Button>
+                            <Button fn={this.handleLog}>log10</Button>
                         </View>
                     </>
 
@@ -147,10 +177,10 @@ export default class Keys extends React.Component {
                     {isPortrait &&
                     <>
                         <View style={styles.item}>
-                            <Button fn={() => this.handleNumberKey(X)}>X</Button>
+                            <Button fn={this.handleExp}>exp(x)</Button>
                         </View>
                         <View style={styles.item}>
-                            <Button fn={() => this.handleNumberKey(X)}>X</Button>
+                            <Button fn={this.handleE}>e</Button>
                         </View>
                     </>
 
@@ -174,10 +204,10 @@ export default class Keys extends React.Component {
                     {isPortrait &&
                     <>
                         <View style={styles.item}>
-                            <Button fn={() => this.handleNumberKey(X)}>X</Button>
+                            <Button fn={this.handlePI}>π</Button>
                         </View>
                         <View style={styles.item}>
-                            <Button fn={() => this.handleNumberKey(X)}>X</Button>
+                            <Button fn={this.handleTenPow}>10^x</Button>
                         </View>
                     </>
 
