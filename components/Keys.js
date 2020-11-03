@@ -121,10 +121,10 @@ export default class Keys extends React.Component {
                     {isPortrait &&
                     <>
                         <View style={styles.item}>
-                            <Button fn={() => this.handlePow(2)}>x<sup>2</sup></Button>
+                            <Button fn={() => this.handlePow(2)}>x^2</Button>
                         </View>
                         <View style={styles.item}>
-                            <Button fn={() => this.handlePow(3)}>x<sup>3</sup></Button>
+                            <Button fn={() => this.handlePow(3)}>x^3</Button>
                         </View>
                     </>
 
@@ -177,7 +177,7 @@ export default class Keys extends React.Component {
                     {isPortrait &&
                     <>
                         <View style={styles.item}>
-                            <Button fn={this.handleExp}>e<sup>x</sup></Button>
+                            <Button fn={this.handleExp}>e^x</Button>
                         </View>
                         <View style={styles.item}>
                             <Button fn={this.handleE}>e</Button>
@@ -207,7 +207,7 @@ export default class Keys extends React.Component {
                             <Button fn={this.handlePI}>π</Button>
                         </View>
                         <View style={styles.item}>
-                            <Button fn={this.handleTenPow}>10<sup>x</sup></Button>
+                            <Button fn={this.handleTenPow}>10^x</Button>
                         </View>
                     </>
 

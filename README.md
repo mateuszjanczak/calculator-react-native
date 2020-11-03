@@ -1,4 +1,7 @@
 ### Calculator written in React Native
 
-#### Preview
-![PREVIEW](./Calculator.png)
+##### Portrait
+![PREVIEW](./docs/portrait.png)
+
+##### Landscape
+![PREVIEW](./docs/landscape.png)
