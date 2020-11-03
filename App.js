@@ -1,7 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
+import {StatusBar} from 'expo-status-bar';
 import React from 'react';
-import { factorial, sqrt, pow, log, log10, exp, e, pi } from 'mathjs';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import {factorial, sqrt, pow, log, log10, exp, e, pi} from 'mathjs';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import Keys from "./components/Keys";
 
 export default class App extends React.Component {
@@ -12,10 +12,10 @@ export default class App extends React.Component {
         operation: ''
     }
 
-    onChange = ({ window: {width, height} }) => {
+    onChange = ({window: {width, height}}) => {
         let isPortrait = false;
 
-        if(width < height) {
+        if (width < height) {
             isPortrait = true;
         }
 
@@ -52,14 +52,14 @@ export default class App extends React.Component {
     }
 
     addString = (number) => {
-        const { display } = this.state;
-        if(display === 0 && number !== ',') {
+        const {display} = this.state;
+        if (display === 0 && number !== ',') {
             this.setState({
                 ...this.state,
                 display: number
             })
         } else {
-            if(number === ',' && !display.toString().includes('.')) {
+            if (number === ',' && !display.toString().includes('.')) {
                 this.setState({
                     ...this.state,
                     display: display.toString() + '.'
@@ -74,11 +74,11 @@ export default class App extends React.Component {
     }
 
     setOperation = (operation) => {
-        let { display, prev } = this.state;
+        let {display, prev} = this.state;
 
-        if(prev) {
+        if (prev) {
             this.doCalculate();
-            setTimeout(()=> {
+            setTimeout(() => {
                 display = this.state.display
                 this.setState({
                     ...this.state,
@@ -98,11 +98,11 @@ export default class App extends React.Component {
     }
 
     doCalculate = () => {
-        const { display, prev, operation } = this.state;
+        const {display, prev, operation} = this.state;
 
         let result;
 
-        switch (operation){
+        switch (operation) {
             case "+":
                 result = prev + display;
                 break;
@@ -128,7 +128,7 @@ export default class App extends React.Component {
     }
 
     doChangeSign = () => {
-        const { display } = this.state;
+        const {display} = this.state;
         this.setState({
             ...this.state,
             display: (-1) * display
@@ -136,10 +136,10 @@ export default class App extends React.Component {
     }
 
     doFactorial = () => {
-        let { display } = this.state;
-        if(display < 0){
+        let {display} = this.state;
+        if (display < 0) {
             console.log("E: Negative numbers")
-        } else if(display.toString().indexOf('.') !== -1) {
+        } else if (display.toString().indexOf('.') !== -1) {
             console.log("E: Float numbers")
         } else {
             display = factorial(display)
@@ -151,9 +151,9 @@ export default class App extends React.Component {
     }
 
     doSqrt = () => {
-        let { display } = this.state;
+        let {display} = this.state;
 
-        if(display < 0){
+        if (display < 0) {
             console.log("E: Negative numbers")
         } else {
             display = sqrt(display)
@@ -165,9 +165,9 @@ export default class App extends React.Component {
     }
 
     doPow = (num) => {
-        let { display } = this.state;
+        let {display} = this.state;
 
-        if(display < 0){
+        if (display < 0) {
             console.log("E: Negative numbers")
         } else {
             display = pow(display, num)
@@ -179,13 +179,13 @@ export default class App extends React.Component {
     }
 
     doLn = () => {
-        let { display } = this.state;
+        let {display} = this.state;
 
-        if(display < 0) {
+        if (display < 0) {
             console.log("E: Negative numbers")
-        } else if(display === 0) {
+        } else if (display === 0) {
             console.log("E: Zero number")
-        }  else {
+        } else {
             display = log(display)
             this.setState({
                 ...this.state,
@@ -195,11 +195,11 @@ export default class App extends React.Component {
     }
 
     doLog = () => {
-        let { display } = this.state;
+        let {display} = this.state;
 
-        if(display < 0) {
+        if (display < 0) {
             console.log("E: Negative numbers")
-        } else if(display === 0) {
+        } else if (display === 0) {
             console.log("E: Zero number")
         } else {
             display = log10(display)
@@ -211,13 +211,13 @@ export default class App extends React.Component {
     }
 
     doExp = () => {
-        let { display } = this.state;
+        let {display} = this.state;
 
-        if(display < 0) {
+        if (display < 0) {
             console.log("E: Negative numbers")
-        } else if(display === 0) {
+        } else if (display === 0) {
             console.log("E: Zero number")
-        }  else {
+        } else {
             display = exp(display)
             this.setState({
                 ...this.state,
@@ -227,30 +227,35 @@ export default class App extends React.Component {
     }
 
     doE = () => {
-        this.addString(e);
+        this.handleConst(e);
     }
 
     doPI = () => {
-        this.addString(pi);
+        this.handleConst(pi);
+    }
+
+    handleConst = (num) => {
+        this.setState({
+            ...this.state,
+            display: num
+        })
     }
 
     doTenPow = () => {
-        let { display } = this.state;
-        if(display.toString().indexOf('.') !== -1) {
-            console.log("E: Float numbers")
-        } else {
-            display = pow(10, display);
-            this.setState({
-                ...this.state,
-                display
-            })
-        }
+        let {display} = this.state;
+
+        display = pow(10, display);
+
+        this.setState({
+            ...this.state,
+            display
+        })
     }
 
     doPercent = () => {
-        let { display, prev, operation } = this.state;
+        let {display, prev, operation} = this.state;
 
-        if(operation === "*" || operation === "/") {
+        if (operation === "*" || operation === "/") {
             display = display / 100;
         } else {
             display = (prev * display) / 100;
@@ -259,11 +264,11 @@ export default class App extends React.Component {
         this.setState({
             ...this.state,
             display
-        })
+        }, this.doCalculate)
     }
 
     renderView = (isPortrait) => {
-        const { display } = this.state;
+        const {display} = this.state;
 
         return (
             <View style={styles.container}>
@@ -290,7 +295,7 @@ export default class App extends React.Component {
 
 
     render() {
-        const { isPortrait } = this.state;
+        const {isPortrait} = this.state;
 
         return (
             this.renderView(isPortrait)
