@@ -2,7 +2,13 @@ import {StatusBar} from 'expo-status-bar';
 import React from 'react';
 import {factorial, sqrt, pow, log, log10, exp, e, pi} from 'mathjs';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
-import Keys from "./components/Keys";
+import {Colors} from "./theme/Colors";
+import Button from "./components/Button";
+
+const Type = {
+    portrait: 'portrait',
+    landscape: 'landscape'
+}
 
 export default class App extends React.Component {
 
@@ -42,7 +48,7 @@ export default class App extends React.Component {
         Dimensions.removeEventListener("change", this.onChange);
     }
 
-    clearState = () => {
+    handleAC = () => {
         this.setState({
             ...this.state,
             display: 0,
@@ -51,7 +57,7 @@ export default class App extends React.Component {
         })
     }
 
-    addString = (number) => {
+    handleNumber = (number) => {
         const {display} = this.state;
         if (display === 0 && number !== ',') {
             this.setState({
@@ -73,11 +79,11 @@ export default class App extends React.Component {
         }
     }
 
-    setOperation = (operation) => {
+    handleOperation = (operation) => {
         let {display, prev} = this.state;
 
         if (prev) {
-            this.doCalculate();
+            this.handleEquals();
             setTimeout(() => {
                 display = this.state.display
                 this.setState({
@@ -97,7 +103,7 @@ export default class App extends React.Component {
         }
     }
 
-    doCalculate = () => {
+    handleEquals = () => {
         const {display, prev, operation} = this.state;
 
         let result;
@@ -127,7 +133,7 @@ export default class App extends React.Component {
         })
     }
 
-    doChangeSign = () => {
+    handleSign = () => {
         const {display} = this.state;
         this.setState({
             ...this.state,
@@ -135,7 +141,7 @@ export default class App extends React.Component {
         })
     }
 
-    doFactorial = () => {
+    handleFactorial = () => {
         let {display} = this.state;
         if (display < 0) {
             console.log("E: Negative numbers")
@@ -150,7 +156,7 @@ export default class App extends React.Component {
         }
     }
 
-    doSqrt = () => {
+    handleSqrt = () => {
         let {display} = this.state;
 
         if (display < 0) {
@@ -164,7 +170,7 @@ export default class App extends React.Component {
         }
     }
 
-    doPow = (num) => {
+    handlePow = (num) => {
         let {display} = this.state;
 
         if (display < 0) {
@@ -178,7 +184,7 @@ export default class App extends React.Component {
         }
     }
 
-    doLn = () => {
+    handleLn = () => {
         let {display} = this.state;
 
         if (display < 0) {
@@ -194,7 +200,7 @@ export default class App extends React.Component {
         }
     }
 
-    doLog = () => {
+    handleLog = () => {
         let {display} = this.state;
 
         if (display < 0) {
@@ -210,7 +216,7 @@ export default class App extends React.Component {
         }
     }
 
-    doExp = () => {
+    handleExp = () => {
         let {display} = this.state;
 
         if (display < 0) {
@@ -226,11 +232,11 @@ export default class App extends React.Component {
         }
     }
 
-    doE = () => {
+    handleE = () => {
         this.handleConst(e);
     }
 
-    doPI = () => {
+    handlePI = () => {
         this.handleConst(pi);
     }
 
@@ -241,7 +247,7 @@ export default class App extends React.Component {
         })
     }
 
-    doTenPow = () => {
+    handleTenPow = () => {
         let {display} = this.state;
 
         display = pow(10, display);
@@ -252,7 +258,7 @@ export default class App extends React.Component {
         })
     }
 
-    doPercent = () => {
+    handlePercent = () => {
         let {display, prev, operation} = this.state;
 
         if (operation === "*" || operation === "/") {
@@ -264,7 +270,209 @@ export default class App extends React.Component {
         this.setState({
             ...this.state,
             display
-        }, this.doCalculate)
+        }, this.handleEquals)
+    }
+
+    buttons = [
+        {
+            color: Colors.tertiary,
+            text: '√x',
+            onPress: this.handleSqrt,
+            type: Type.landscape
+        },
+        {
+            color: Colors.tertiary,
+            text: 'x!',
+            onPress: this.handleFactorial,
+            type: Type.landscape
+        },
+        {
+            color: Colors.primary,
+            text: 'AC',
+            onPress: this.handleAC,
+            type: Type.portrait
+        },
+        {
+            color: Colors.primary,
+            text: '+/-',
+            onPress: this.handleSign,
+            type: Type.portrait
+        },
+        {
+            color: Colors.primary,
+            text: '%',
+            onPress: this.handlePercent,
+            type: Type.portrait
+        },
+        {
+            color: Colors.secondary,
+            text: '/',
+            onPress: () => this.handleOperation('/'),
+            type: Type.portrait
+        },
+
+
+
+        {
+            color: Colors.tertiary,
+            text: 'x^2',
+            onPress: () => this.handlePow(2),
+            type: Type.landscape
+        },
+        {
+            color: Colors.tertiary,
+            text: 'x^3',
+            onPress: () => this.handlePow(3),
+            type: Type.landscape
+        },
+        {
+            color: Colors.primary,
+            text: '7',
+            onPress: () => this.handleNumber(7),
+            type: Type.portrait
+        },
+        {
+            color: Colors.primary,
+            text: '8',
+            onPress: () => this.handleNumber(8),
+            type: Type.portrait
+        },
+        {
+            color: Colors.primary,
+            text: '9',
+            onPress: () => this.handleNumber(9),
+            type: Type.portrait
+        },
+        {
+            color: Colors.secondary,
+            text: '*',
+            onPress: () => this.handleOperation('*'),
+            type: Type.portrait
+        },
+
+
+
+        {
+            color: Colors.tertiary,
+            text: 'ln',
+            onPress: this.handleLn,
+            type: Type.landscape
+        },
+        {
+            color: Colors.tertiary,
+            text: 'log10',
+            onPress: this.handleLog,
+            type: Type.landscape
+        },
+        {
+            color: Colors.primary,
+            text: '4',
+            onPress: () => this.handleNumber(4),
+            type: Type.portrait
+        },
+        {
+            color: Colors.primary,
+            text: '5',
+            onPress: () => this.handleNumber(5),
+            type: Type.portrait
+        },
+        {
+            color: Colors.primary,
+            text: '6',
+            onPress: () => this.handleNumber(6),
+            type: Type.portrait
+        },
+        {
+            color: Colors.secondary,
+            text: '-',
+            onPress: () => this.handleOperation('-'),
+            type: Type.portrait
+        },
+
+        {
+            color: Colors.tertiary,
+            text: 'e^x',
+            onPress: this.handleExp,
+            type: Type.landscape
+        },
+        {
+            color: Colors.tertiary,
+            text: 'e',
+            onPress: this.handleE,
+            type: Type.landscape
+        },
+        {
+            color: Colors.primary,
+            text: '1',
+            onPress: () => this.handleNumber(1),
+            type: Type.portrait
+        },
+        {
+            color: Colors.primary,
+            text: '2',
+            onPress: () => this.handleNumber(2),
+            type: Type.portrait
+        },
+        {
+            color: Colors.primary,
+            text: '3',
+            onPress: () => this.handleNumber(3),
+            type: Type.portrait
+        },
+        {
+            color: Colors.secondary,
+            text: '+',
+            onPress: () => this.handleOperation('+'),
+            type: Type.portrait
+        },
+
+        {
+            color: Colors.tertiary,
+            text: 'π',
+            onPress: this.handlePI,
+            type: Type.landscape
+        },
+        {
+            color: Colors.tertiary,
+            text: '10^x',
+            onPress: this.handleTenPow,
+            type: Type.landscape
+        },
+        {
+            color: Colors.primary,
+            text: '0',
+            onPress: () => this.handleNumber(0),
+            type: Type.portrait
+        },
+        {
+            color: Colors.primary,
+            text: ',',
+            onPress: () => this.handleNumber(','),
+            type: Type.portrait
+        },
+        {
+            color: Colors.secondary,
+            text: '=',
+            onPress: this.handleEquals,
+            type: Type.portrait
+        },
+    ]
+
+    renderButton = (item) => {
+        const {isPortrait} = this.state;
+        const {color, text, onPress, type} = item;
+
+        if(isPortrait) {
+            if(type === Type.portrait) {
+                return (
+                    <Button key={text} width={25.0} color={color} fn={onPress} type={type}>{text}</Button>
+                )
+            }
+        } else {
+            return (
+                <Button key={text} width={16.66} color={color} text={text} fn={onPress} type={type}>{text}</Button>
+            )
+        }
     }
 
     renderView = (isPortrait) => {
@@ -274,21 +482,13 @@ export default class App extends React.Component {
             <View style={styles.container}>
                 <StatusBar style="auto"/>
 
-                <View style={isPortrait ? stylesPortrait.result : stylesLandscape.result}>
+                <View style={[styles.result, isPortrait ? stylesPortrait.result : stylesLandscape.result]}>
                     <Text style={styles.resultText}>{display}</Text>
                 </View>
 
-                <Keys style={isPortrait ? stylesPortrait.keys : stylesLandscape.keys}
-                      changeResult={this.changeResult} addString={this.addString}
-                      setOperation={this.setOperation} clearState={this.clearState}
-                      doCalculate={this.doCalculate} isPortrait={!isPortrait}
-                      changeSign={this.doChangeSign} factorial={this.doFactorial}
-                      sqrt={this.doSqrt} pow={this.doPow}
-                      ln={this.doLn} log={this.doLog}
-                      exp={this.doExp} e={this.doE}
-                      pi={this.doPI} tenPow={this.doTenPow}
-                      percent={this.doPercent}
-                />
+                <View style={[styles.keys, isPortrait ? stylesPortrait.keys : stylesLandscape.keys]}>
+                    {this.buttons.map((item) => this.renderButton(item))}
+                </View>
             </View>
         )
     }
@@ -313,32 +513,33 @@ const styles = StyleSheet.create({
         fontSize: 75,
         color: "white"
     },
+    result: {
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+        marginRight: 20
+    },
+    keys: {
+        backgroundColor: "#646466",
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignContent:'stretch'
+    }
 });
-
 
 const stylesPortrait = StyleSheet.create({
     result: {
-        flex: 0.7,
-        justifyContent: "flex-end",
-        alignItems: "flex-end",
-        marginRight: 20
+        flex: 0.5,
     },
     keys: {
-        flex: 0.3,
-        backgroundColor: "#646466"
+        flex: 0.5,
     },
 });
 
-
 const stylesLandscape = StyleSheet.create({
     result: {
-        flex: 0.45,
-        justifyContent: "flex-end",
-        alignItems: "flex-end",
-        marginRight: 20
+        flex: 0.3,
     },
     keys: {
-        flex: 0.55,
-        backgroundColor: "#646466"
+        flex: 0.7,
     },
 });

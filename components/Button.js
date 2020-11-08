@@ -3,16 +3,25 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 export default class Button extends React.Component {
     render() {
-        const { children, orange, gray, fn } = this.props;
+        const { children, width, color, fn } = this.props;
 
-        const getListStyle = () => ({
-            backgroundColor: orange ? (gray ? '#545559' : '#f2a33c') : '#7d7e80',
+        const getBackgroundColor = () => ({
+            backgroundColor: color
         })
 
+        const getWidth = () => {
+            let flexBasis = (children === '0' ? width * 2 : width) + '%';
+
+            return ({
+                flexBasis
+            })
+        }
+
         return (
-            <TouchableOpacity onPress={fn} style={[styles.wrapper, getListStyle()]}>
-                <Text style={styles.buttonText}>{children}</Text>
-            </TouchableOpacity>
+
+                <TouchableOpacity onPress={fn} style={[styles.wrapper, getBackgroundColor(), getWidth()]}>
+                    <Text style={styles.buttonText}>{children}</Text>
+                </TouchableOpacity>
         );
     }
 }
