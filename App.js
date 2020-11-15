@@ -13,9 +13,7 @@ const Type = {
 export default class App extends React.Component {
 
     state = {
-        display: 0,
-        prev: '',
-        operation: ''
+        display: 0
     }
 
     onChange = ({window: {width, height}}) => {
@@ -51,90 +49,50 @@ export default class App extends React.Component {
     handleAC = () => {
         this.setState({
             ...this.state,
-            display: 0,
-            prev: '',
-            operation: ''
+            display: 0
         })
     }
 
     handleNumber = (number) => {
-        const {display} = this.state;
+        let {display} = this.state;
         if (display === 0 && number !== ',') {
             this.setState({
                 ...this.state,
                 display: number
             })
         } else {
-            if (number === ',' && !display.toString().includes('.')) {
-                this.setState({
-                    ...this.state,
-                    display: display.toString() + '.'
-                })
-            } else {
-                this.setState({
-                    ...this.state,
-                    display: parseFloat(display.toString() + number)
-                })
+            const char = display.toString().slice(-1);
+            const array = ["+", "-", "*", "/", "."];
+            if(isNaN(number) && array.includes(char)) {
+                display = display.toString().slice(0, -1);
             }
-        }
-    }
-
-    handleOperation = (operation) => {
-        let {display, prev} = this.state;
-
-        if (prev) {
-            this.handleEquals();
-            setTimeout(() => {
-                display = this.state.display
-                this.setState({
-                    ...this.state,
-                    operation,
-                    prev: display,
-                    display: 0
-                })
-            }, 1)
-        } else {
             this.setState({
                 ...this.state,
-                operation,
-                prev: display,
-                display: 0
+                display: display.toString() + number
             })
         }
     }
 
+    handleOperation = (operation) => {
+        this.handleNumber(operation);
+    }
+
     handleEquals = () => {
-        const {display, prev, operation} = this.state;
+        const {display} = this.state;
 
-        let result;
-
-        switch (operation) {
-            case "+":
-                result = prev + display;
-                break;
-            case "-":
-                result = prev - display;
-                break;
-            case "*":
-                result = prev * display;
-                break;
-            case "/":
-                result = display !== 0 ? prev / display : 0;
-                break;
-            default:
-                result = display;
-        }
+        let result = eval(display);
 
         this.setState({
             ...this.state,
-            display: result,
-            operation: '',
-            prev: ''
+            display: result
         })
     }
 
     handleSign = () => {
-        const {display} = this.state;
+        let {display} = this.state;
+
+        display = eval(display);
+
         this.setState({
             ...this.state,
             display: (-1) * display
@@ -143,6 +101,9 @@ export default class App extends React.Component {
 
     handleFactorial = () => {
         let {display} = this.state;
+
+        display = eval(display);
+
         if (display < 0) {
             console.log("E: Negative numbers")
         } else if (display.toString().indexOf('.') !== -1) {
@@ -157,7 +118,9 @@ export default class App extends React.Component {
     }
 
     handleSqrt = () => {
-        let {display} = this.state;
+        let { display } = this.state;
+
+        display = eval(display);
 
         if (display < 0) {
             console.log("E: Negative numbers")
@@ -173,6 +136,8 @@ export default class App extends React.Component {
     handlePow = (num) => {
         let {display} = this.state;
 
+        display = eval(display);
+
         if (display < 0) {
             console.log("E: Negative numbers")
         } else {
@@ -186,6 +151,8 @@ export default class App extends React.Component {
 
     handleLn = () => {
         let {display} = this.state;
+
+        display = eval(display);
 
         if (display < 0) {
             console.log("E: Negative numbers")
@@ -203,6 +170,8 @@ export default class App extends React.Component {
     handleLog = () => {
         let {display} = this.state;
 
+        display = eval(display);
+
         if (display < 0) {
             console.log("E: Negative numbers")
         } else if (display === 0) {
@@ -218,6 +187,8 @@ export default class App extends React.Component {
 
     handleExp = () => {
         let {display} = this.state;
+
+        display = eval(display);
 
         if (display < 0) {
             console.log("E: Negative numbers")
@@ -241,14 +212,18 @@ export default class App extends React.Component {
     }
 
     handleConst = (num) => {
+        const { display } = this.state;
+
         this.setState({
             ...this.state,
-            display: num
+            display: display + num
         })
     }
 
     handleTenPow = () => {
         let {display} = this.state;
+
+        display = eval(display);
 
         display = pow(10, display);
 
@@ -258,19 +233,14 @@ export default class App extends React.Component {
         })
     }
 
-    handlePercent = () => {
-        let {display, prev, operation} = this.state;
-
-        if (operation === "*" || operation === "/") {
-            display = display / 100;
-        } else {
-            display = (prev * display) / 100;
-        }
+    handleC = () => {
+        let { display } = this.state;
+        display = display.toString().slice(0, -1);
 
         this.setState({
             ...this.state,
             display
-        }, this.handleEquals)
+        })
     }
 
     buttons = [
@@ -300,8 +270,8 @@ export default class App extends React.Component {
         },
         {
             color: Colors.primary,
-            text: '%',
-            onPress: this.handlePercent,
+            text: 'C',
+            onPress: this.handleC,
             type: Type.portrait
         },
         {
@@ -447,7 +417,7 @@ export default class App extends React.Component {
         {
             color: Colors.primary,
             text: ',',
-            onPress: () => this.handleNumber(','),
+            onPress: () => this.handleNumber('.'),
             type: Type.portrait
         },
         {
