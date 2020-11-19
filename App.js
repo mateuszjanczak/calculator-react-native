@@ -453,7 +453,7 @@ export default class App extends React.Component {
                 <StatusBar style="auto"/>
 
                 <View style={[styles.result, isPortrait ? stylesPortrait.result : stylesLandscape.result]}>
-                    <Text style={styles.resultText}>{display}</Text>
+                    <Text adjustsFontSizeToFit numberOfLines={1} style={styles.resultText}>{display}</Text>
                 </View>
 
                 <View style={[styles.keys, isPortrait ? stylesPortrait.keys : stylesLandscape.keys]}>
@@ -480,7 +480,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#545557"
     },
     resultText: {
-        fontSize: 75,
+        fontSize: 50,
         color: "white"
     },
     result: {
